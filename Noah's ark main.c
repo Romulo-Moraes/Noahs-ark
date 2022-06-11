@@ -18,6 +18,7 @@ static char *TargetFile = NULL;
 #define CLASSIC_WRITE "w"
 
 void GetSignedNumberHex(int Value, char *OutputBuffer);
+void IntToString(int Number,char *OutputBuffer);
 
 int main(int argc, char *argv[]){
     if(argc == 2){
@@ -55,7 +56,7 @@ int main(int argc, char *argv[]){
                 memset(FileText,'\0',FILE_TEXT_CHUNK_SIZE);
             }
 
-            itoa(FileSize,FileSizeAsString,10);
+            IntToString(FileSize,FileSizeAsString);
 
             fwrite(FileSizeAsString,1,strlen(FileSizeAsString),FileToWritePayloadSize);
         }
@@ -135,4 +136,20 @@ void GetSignedNumberHex(int Value, char *OutputBuffer){
 
     // Transform the result into a Hex representation and pop out of the function
     sprintf(OutputBuffer,"\\x%x",finalNumber);
+}
+
+void IntToString(int Number,char *OutputBuffer){
+    char BackwardsString[128] = {0};
+    int BackwardsStringIndex = 0, j = 0;
+
+    while(Number != 0){
+        BackwardsString[BackwardsStringIndex] = (Number % 10) + '0';
+        BackwardsStringIndex++;
+        Number = Number / 10;
+    }
+
+    for(int i = BackwardsStringIndex - 1; i >= 0; i--){
+        OutputBuffer[j] = BackwardsString[i];
+        j++;
+    }
 }

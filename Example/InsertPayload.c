@@ -3,9 +3,9 @@
 #include "Payload.h"
 
 int main(){
-    FILE* FileToWrite = fopen("./EmbeddedHelloWorld.exe","wb");
+    FILE* FileToWrite = fopen("./EmbeddedHelloWorld","wb");
 
-    fwrite(PAYLOAD,1,40764,FileToWrite);
+    fwrite(PAYLOAD,1,16696,FileToWrite);
 
     fclose(FileToWrite);
     return 0;
