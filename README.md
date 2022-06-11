@@ -52,4 +52,13 @@ int main(){
 ```
 this will recreate the transpilated code to a executable called EmbeddedHelloWorld.exe that just can be runned.
 
+After of write the payload in disk just execute it!
+```ps
+.\EmbeddedHelloWorld.exe
+```
+the program will run normally, program output:
+```ps
+Hello world!
+```
+
 ### The whole example of the tutorial is present in /Example
