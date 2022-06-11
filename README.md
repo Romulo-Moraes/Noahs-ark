@@ -62,3 +62,5 @@ Hello world!
 ```
 
 ### The whole example of the tutorial is present in /Example
+The pre-transpilated files in /Example is for Windows OS, if you wan't make for another OS, then don't use this files.
+
