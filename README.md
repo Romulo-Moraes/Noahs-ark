@@ -72,7 +72,3 @@ Some C compilers like the CL of Microsoft has a limitation in size of a constant
 ```
 
 A question will pop up asking if the chunk size is correct, a small size can spawn a lot of files in the current directory. Just give a 'y' to continue of 'n' to exit.
-
-### The whole example of the tutorial is present in /Example
-The pre-transpilated files in /Example is for Windows OS, if you wan't make for another OS, then don't use this files.
-
