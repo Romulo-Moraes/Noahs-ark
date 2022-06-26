@@ -91,52 +91,58 @@ int main(int argc, char *argv[])
             // Get the chunk size by command line
             OutputFileChunks = atoi(argv[2]);
 
-            printf("You sure that will wan't write in each file %d of chunk size ? (y / n)\n", OutputFileChunks);
-            if (getchar() == 'y')
+            if (OutputFileChunks != 0)
             {
-                // Run until reach end of file
-                while (feof(FileToTransform) == 0)
+                printf("You sure that will wan't write in each file %d of chunk size ? (y / n)\n", OutputFileChunks);
+                if (getchar() == 'y')
                 {
-                    PrepareOutputFilename(CurrentOutputFilename, &r);
-
-                    // For each loop a new output file is created
-                    FileToWrite = fopen(CurrentOutputFilename, CLASSIC_WRITE);
-
-                    ChunkSizeCopy = OutputFileChunks;
-                    while (ChunkSizeCopy != 0 && feof(FileToTransform) == 0)
+                    // Run until reach end of file
+                    while (feof(FileToTransform) == 0)
                     {
-                        if (ChunkSizeCopy < FILE_TEXT_CHUNK_SIZE)
-                        {
-                            ReadBytes = fread(FileText, 1, ChunkSizeCopy, FileToTransform);
-                            ChunkSizeCopy = 0;
-                        }
-                        else
-                        {
-                            ReadBytes = fread(FileText, 1, FILE_TEXT_CHUNK_SIZE, FileToTransform);
-                            ChunkSizeCopy -= FILE_TEXT_CHUNK_SIZE;
-                        }
+                        PrepareOutputFilename(CurrentOutputFilename, &r);
 
-                        for (i = 0; i < ReadBytes; i++)
+                        // For each loop a new output file is created
+                        FileToWrite = fopen(CurrentOutputFilename, CLASSIC_WRITE);
+
+                        ChunkSizeCopy = OutputFileChunks;
+                        while (ChunkSizeCopy != 0 && feof(FileToTransform) == 0)
                         {
-                            if (FileText[i] < 0)
+                            if (ChunkSizeCopy < FILE_TEXT_CHUNK_SIZE)
                             {
-                                GetSignedNumberHex(FileText[i], CurrentHexCode);
+                                ReadBytes = fread(FileText, 1, ChunkSizeCopy, FileToTransform);
+                                ChunkSizeCopy = 0;
                             }
                             else
                             {
-                                sprintf(CurrentHexCode, "\\x%x", FileText[i]);
+                                ReadBytes = fread(FileText, 1, FILE_TEXT_CHUNK_SIZE, FileToTransform);
+                                ChunkSizeCopy -= FILE_TEXT_CHUNK_SIZE;
                             }
 
-                            fwrite(CurrentHexCode, 1, strlen(CurrentHexCode), FileToWrite);
-                            memset(CurrentHexCode, '\0', 6);
+                            for (i = 0; i < ReadBytes; i++)
+                            {
+                                if (FileText[i] < 0)
+                                {
+                                    GetSignedNumberHex(FileText[i], CurrentHexCode);
+                                }
+                                else
+                                {
+                                    sprintf(CurrentHexCode, "\\x%x", FileText[i]);
+                                }
+
+                                fwrite(CurrentHexCode, 1, strlen(CurrentHexCode), FileToWrite);
+                                memset(CurrentHexCode, '\0', 6);
+                            }
                         }
+                        fclose(FileToWrite);
                     }
-                    fclose(FileToWrite);
+                }
+                else
+                {
+                    exit(0);
                 }
             }
-            else
-            {
-                exit(0);
+            else{
+                puts("Is impossible set the chunk size to 0 bytes. Exiting...");
             }
         }
 

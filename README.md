@@ -61,6 +61,18 @@ the program will run normally, program output:
 Hello world!
 ```
 
+### Output chunk size feature
+Some C compilers like the CL of Microsoft has a limitation in size of a constant in the code, with this new version is possible split the output of Noah's ark is more that one file.
+
+```sh
+# To use this feature, put the max chunk size that each output file can hold
+# Like in the example below
+
+./Ark ./Executable 8040
+```
+
+A question will pop up asking if the chunk size is correct, a small size can spawn a lot of files in the current directory. Just give a 'y' to continue of 'n' to exit.
+
 ### The whole example of the tutorial is present in /Example
 The pre-transpilated files in /Example is for Windows OS, if you wan't make for another OS, then don't use this files.
 
