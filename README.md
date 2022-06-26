@@ -62,7 +62,7 @@ Hello world!
 ```
 
 ### Output chunk size feature
-Some C compilers like the CL of Microsoft has a limitation in size of a constant in the code, with this new version is possible split the output of Noah's ark is more that one file.
+Some C compilers like the CL of Microsoft has a limitation in size of a constant in the code, with this new version is possible split the output of Noah's ark in more than one file, each file with a specified size of byts.
 
 ```sh
 # To use this feature, put the max chunk size that each output file can hold
