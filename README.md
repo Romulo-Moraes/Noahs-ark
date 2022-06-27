@@ -52,6 +52,25 @@ int main(){
 ```
 this will recreate the transpilated code to a executable called EmbeddedHelloWorld.exe that just can be runned.
 
+Another method of write the content without the size constant is using the sizeof macro of C language.
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include "Payload.h"
+
+int main(){
+    FILE* FileToWrite = fopen("./EmbeddedHelloWorld.exe","wb");
+
+    // The size to be write in the file is in "./PayloadSizeOutput.txt" file
+    fwrite(PAYLOAD,1,sizeof(PAYLOAD) - 1,FileToWrite);
+
+    fclose(FileToWrite);
+    return 0;
+}
+```
+Always remember that the sizeof take the last null byte that comes in PAYLOAD definition, then the "sizeof() - 1" become useful
+
 After of write the payload in disk just execute it!
 ```ps
 .\EmbeddedHelloWorld.exe
@@ -60,6 +79,7 @@ the program will run normally, program output:
 ```ps
 Hello world!
 ```
+
 
 ### Output chunk size feature
 Some C compilers like the CL of Microsoft has a limitation in size of a constant in the code, with this new version is possible split the output of Noah's ark in more than one file, each file with a specified size of bytes.
@@ -72,3 +92,10 @@ Some C compilers like the CL of Microsoft has a limitation in size of a constant
 ```
 
 A question will pop up asking if the chunk size is correct, a small size can spawn a lot of files in the current directory. Just give a 'y' to continue or 'n' to exit.
+
+
+### Using a script language
+The root directory of project has a Python version of the C program, the use is the same of the previous explanation above.
+```sh
+python3 "./Noah's ark main.py" <FileToTransform> <Chunk size (if necessary)>
+```
